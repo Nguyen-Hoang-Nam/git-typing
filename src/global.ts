@@ -7,6 +7,8 @@ const Language: object = {
   kt: 'Kotlin',
   yml: 'Yaml',
   tex: 'Latex',
+  php: 'PHP',
+  css: 'CSS',
 };
 
 const Theme: object = {
@@ -54,9 +56,20 @@ const Theme: object = {
 
 const Comment: object = {
   Javascript: `\/\/`,
+  Typescript: `\/\/`,
+  Lua: `--`,
   Go: `\/\/`,
   Python: '#',
   Rust: `\/\/`,
+  PHP: `(\/\/|#)`,
+  Java: `\/\/`,
+  C: `\/\/`,
+  CPP: `\/\/`,
+  Bash: `#`,
+  Kotlin: `\/\/`,
+  Latex: `%`,
+  SQL: `--`,
+  Yaml: `#`,
 };
 
 const SelectTheme: string[] = [
@@ -89,6 +102,7 @@ const SelectLanguage: string[] = [
   `SQL`,
   `Typescript`,
   `Yaml`,
+  `Lua`,
 ];
 
 const SelectFont: string[] = [

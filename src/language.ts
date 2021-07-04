@@ -15,3 +15,4 @@ export { default as python } from 'svelte-highlight/src/languages/python';
 export { default as Typescript } from 'svelte-highlight/src/languages/typescript';
 export { default as Yaml } from 'svelte-highlight/src/languages/yaml';
 export { default as Rust } from 'svelte-highlight/src/languages/rust';
+export { default as Lua } from 'svelte-highlight/src/languages/lua';

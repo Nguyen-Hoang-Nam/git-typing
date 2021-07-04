@@ -1,7 +1,5 @@
 <script lang="ts">
   import Highlight from "svelte-highlight";
-  /* import syntaxHighlight from "svelte-highlight/src/languages/go"; */
-  /* import onedark from "svelte-highlight/src/styles/onedark"; */
 
   import * as syntaxHighlight from "./language";
   import * as syntaxTheme from "./theme";

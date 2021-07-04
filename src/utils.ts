@@ -9,25 +9,29 @@ const setCharAt = (str: string, index: number, chr: string): string => {
 };
 
 const removeComment = (code: string, lang: string): string => {
-  const comment: string = global.Comment[lang];
-  const commentRe: RegExp = new RegExp(comment, 'g');
+  if (lang in global.Comment) {
+    const comment: string = global.Comment[lang];
+    const commentRe: RegExp = new RegExp(comment, 'g');
 
-  const allLine: string[] = code.split('\n');
-  const newLine: string[] = [];
-  for (const line of allLine) {
-    const commnentPosition: number = line.search(commentRe);
-    if (commnentPosition === -1) {
-      newLine.push(line);
-    } else if (commnentPosition > 0 && line[0] !== '\t') {
-      newLine.push(line.substring(0, commnentPosition));
+    const allLine: string[] = code.split('\n');
+    const newLine: string[] = [];
+    for (const line of allLine) {
+      const commnentPosition: number = line.search(commentRe);
+      if (commnentPosition === -1) {
+        newLine.push(line);
+      } else if (commnentPosition > 0 && line[0] !== '\t') {
+        newLine.push(line.substring(0, commnentPosition));
+      }
     }
+
+    if (newLine[0] === '') {
+      newLine.shift();
+    }
+
+    return newLine.join('\n');
   }
 
-  if (newLine[0] === '') {
-    newLine.shift();
-  }
-
-  return newLine.join('\n');
+  return code;
 };
 
 const capitalize = (str: string): string => str[0].toUpperCase() + str.slice(1);
