@@ -1,0 +1,17 @@
+export { default as Go } from 'svelte-highlight/src/languages/go';
+export { default as Bash } from 'svelte-highlight/src/languages/bash';
+export { default as C } from 'svelte-highlight/src/languages/c';
+export { default as CPP } from 'svelte-highlight/src/languages/cpp';
+export { default as CSS } from 'svelte-highlight/src/languages/css';
+export { default as Dockerfile } from 'svelte-highlight/src/languages/dockerfile';
+export { default as Java } from 'svelte-highlight/src/languages/java';
+export { default as Javascript } from 'svelte-highlight/src/languages/javascript';
+export { default as Json } from 'svelte-highlight/src/languages/json';
+export { default as Kotlin } from 'svelte-highlight/src/languages/kotlin';
+export { default as Latex } from 'svelte-highlight/src/languages/latex';
+export { default as PHP } from 'svelte-highlight/src/languages/php';
+export { default as SQL } from 'svelte-highlight/src/languages/sql';
+export { default as python } from 'svelte-highlight/src/languages/python';
+export { default as Typescript } from 'svelte-highlight/src/languages/typescript';
+export { default as Yaml } from 'svelte-highlight/src/languages/yaml';
+export { default as Rust } from 'svelte-highlight/src/languages/rust';
