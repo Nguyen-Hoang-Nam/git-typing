@@ -1,11 +1,30 @@
 import global from './global';
 
+const getCurrentTime = (): number => {
+  const date: Date = new Date();
+  return date.getHours() * 60 + date.getMinutes() * 60 + date.getSeconds();
+};
+
 const setCharAt = (str: string, index: number, chr: string): string => {
   if (index > str.length - 1) {
     return str;
   }
 
   return str.substring(0, index) + chr + str.substring(index + 1);
+};
+
+const replaceNewline = (code: string): string => {
+  const codeLen = code.length;
+  let newCode = '';
+
+  for (let i = 0; i < codeLen - 1; i++) {
+    if (code[i] === '\n') {
+      newCode += '↵\n';
+    } else {
+      newCode += code[i];
+    }
+  }
+  return newCode;
 };
 
 const removeComment = (code: string, lang: string): string => {
@@ -20,7 +39,14 @@ const removeComment = (code: string, lang: string): string => {
       if (commnentPosition === -1) {
         newLine.push(line);
       } else if (commnentPosition > 0 && line[0] !== '\t') {
-        newLine.push(line.substring(0, commnentPosition));
+        const doubleQuotePosition: number = line.search('"');
+        const singleQuotePosition: number = line.search("'");
+
+        if (doubleQuotePosition === -1 && singleQuotePosition === -1) {
+          newLine.push(line.substring(0, commnentPosition));
+        } else {
+          newLine.push(line);
+        }
       }
     }
 
@@ -50,4 +76,10 @@ const getLang = (url: string): string => {
   return lang;
 };
 
-export default { setCharAt, removeComment, getLang };
+export default {
+  setCharAt,
+  removeComment,
+  getLang,
+  replaceNewline,
+  getCurrentTime,
+};

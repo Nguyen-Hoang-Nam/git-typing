@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const sveltePreprocess = require('svelte-preprocess');
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
@@ -46,7 +47,6 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
-      { test: /\.(woff2|ttf)$/, use: ['url-loader'] },
       {
         // required to prevent errors from Svelte on Webpack 5+
         test: /node_modules\/svelte\/.*\.mjs$/,
@@ -60,6 +60,24 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',
+    }),
+    new GenerateSW({
+      runtimeCaching: [
+        {
+          urlPattern: /\.(?:woff2|ttf)$/,
+
+          handler: 'CacheFirst',
+
+          options: {
+            cacheName: 'fonts',
+
+            // Only cache 10 images.
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+      ],
     }),
   ],
   devtool: prod ? false : 'source-map',

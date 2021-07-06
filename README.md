@@ -6,18 +6,22 @@ I love the idea of [typing.io](https://typing.io/), instead of typing random par
 
 ## Usage
 
-Choose Github's repo you want to typing, then choose file, click raw button. Replacing ```raw.githubusercontent.com/``` by ```gittyping.vercel.app/?github=```
+Choose Github's repo you want to typing, then choose one file. Replacing ```github.com/``` by ```gittyping.vercel.app/?github=```, and enjoy.
+
+Note: *This app use indexedDB to store data so your config, which you already typing will be there when you back.*
 
 ## TODO
 
-- [ ] Count wpm
-- [ ] Fetch code by web worker
-- [ ] Store current cursor, result in indexedDB
+- [x] Count wpm
+- [x] Fetch code by web worker
+- [x] Store current cursor, result in indexedDB
 - [ ] Support Gitlab
 - [ ] Show keyboard
 - [ ] Analysis result
-- [ ] Show line number
-- [ ] Highlight cursor line
+- [x] Show line number
+- [x] Highlight cursor line
+- [ ] Auto center editor base on cursor
+- [ ] Detect tab size
 
 ## Contributing
 
