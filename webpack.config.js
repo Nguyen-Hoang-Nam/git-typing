@@ -1,87 +1,87 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
-const sveltePreprocess = require('svelte-preprocess');
-const { GenerateSW } = require('workbox-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+const sveltePreprocess = require("svelte-preprocess");
+const { GenerateSW } = require("workbox-webpack-plugin");
 
-const mode = process.env.NODE_ENV || 'development';
-const prod = mode === 'production';
+const mode = process.env.NODE_ENV || "development";
+const prod = mode === "production";
 
 module.exports = {
-  entry: {
-    'build/bundle': ['./src/main.ts'],
-  },
-  resolve: {
-    alias: {
-      svelte: path.dirname(require.resolve('svelte/package.json')),
+    entry: {
+        "build/bundle": ["./src/main.ts"],
     },
-    extensions: ['.mjs', '.js', '.ts', '.svelte'],
-    mainFields: ['svelte', 'browser', 'module', 'main'],
-  },
-  output: {
-    path: path.join(__dirname, '/public'),
-    filename: '[name].js',
-    chunkFilename: '[name].[id].js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.svelte$/,
-        use: {
-          loader: 'svelte-loader',
-          options: {
-            compilerOptions: {
-              dev: !prod,
+    resolve: {
+        alias: {
+            svelte: path.dirname(require.resolve("svelte/package.json")),
+        },
+        extensions: [".mjs", ".js", ".ts", ".svelte"],
+        mainFields: ["svelte", "browser", "module", "main"],
+    },
+    output: {
+        path: path.join(__dirname, "/public"),
+        filename: "[name].js",
+        chunkFilename: "[name].[id].js",
+    },
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                loader: "ts-loader",
+                exclude: /node_modules/,
             },
-            emitCss: prod,
-            hotReload: !prod,
-            preprocess: sveltePreprocess({ sourceMap: !prod }),
-          },
-        },
-      },
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        // required to prevent errors from Svelte on Webpack 5+
-        test: /node_modules\/svelte\/.*\.mjs$/,
-        resolve: {
-          fullySpecified: false,
-        },
-      },
+            {
+                test: /\.svelte$/,
+                use: {
+                    loader: "svelte-loader",
+                    options: {
+                        compilerOptions: {
+                            dev: !prod,
+                        },
+                        emitCss: prod,
+                        hotReload: !prod,
+                        preprocess: sveltePreprocess({ sourceMap: !prod }),
+                    },
+                },
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
+            },
+            {
+                // required to prevent errors from Svelte on Webpack 5+
+                test: /node_modules\/svelte\/.*\.mjs$/,
+                resolve: {
+                    fullySpecified: false,
+                },
+            },
+        ],
+    },
+    mode,
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+        }),
+        new GenerateSW({
+            runtimeCaching: [
+                {
+                    urlPattern: /\.(?:woff2|ttf)$/,
+
+                    handler: "CacheFirst",
+
+                    options: {
+                        cacheName: "fonts",
+
+                        // Only cache 10 images.
+                        expiration: {
+                            maxEntries: 10,
+                        },
+                    },
+                },
+            ],
+        }),
     ],
-  },
-  mode,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-    }),
-    new GenerateSW({
-      runtimeCaching: [
-        {
-          urlPattern: /\.(?:woff2|ttf)$/,
-
-          handler: 'CacheFirst',
-
-          options: {
-            cacheName: 'fonts',
-
-            // Only cache 10 images.
-            expiration: {
-              maxEntries: 10,
-            },
-          },
-        },
-      ],
-    }),
-  ],
-  devtool: prod ? false : 'source-map',
-  devServer: {
-    hot: true,
-  },
+    devtool: prod ? false : "source-map",
+    devServer: {
+        hot: true,
+    },
 };
